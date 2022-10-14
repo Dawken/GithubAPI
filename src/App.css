@@ -4,3 +4,18 @@ body {
   background-attachment: fixed;
   overflow-x: hidden;
 }
+::-webkit-scrollbar {
+  width: 20px;
+  height: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+  to bottom,
+  #032cc2,
+  #7202bb
+  );
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}

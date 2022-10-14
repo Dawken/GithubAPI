@@ -3,14 +3,13 @@
   font-family: "Comfortaa", cursive;
   font-weight: 100;
 }
-
-.itemContainer:hover {
+.mainContainer .itemContainer:hover {
   transform: scale(1.15);
 }
-
-.itemContainer {
+.mainContainer .itemContainer {
   display: inline-grid;
-  margin-right: 150px;
+  justify-content: center;
+  margin: 130px;
   margin-top: 80px;
   color: #c5b9b9;
   background-color: rgba(0, 0, 0, 0.96);
@@ -23,38 +22,38 @@
   height: 380px;
   cursor: pointer;
 }
-.itemContainer .avatarImage {
+.mainContainer .itemContainer .avatarImage {
   width: 230px;
   height: auto;
   border-radius: 10px;
 }
-.itemContainer .icons {
+.mainContainer .itemContainer .icons {
   float: left;
   margin-top: 63px;
   margin-left: 10px;
 }
-.itemContainer .icons .user {
+.mainContainer .itemContainer .icons .user {
   transform: scale(var(--ggs, 1));
   box-sizing: border-box;
   width: 18px;
   height: 27px;
 }
-.itemContainer .icons .user::after,
-.itemContainer .icons .user::before {
+.mainContainer .itemContainer .icons .user::after,
+.mainContainer .itemContainer .icons .user::before {
   content: "";
   display: block;
   box-sizing: border-box;
   position: absolute;
   border: 2px solid;
 }
-.itemContainer .icons .user::before {
+.mainContainer .itemContainer .icons .user::before {
   width: 8px;
   height: 8px;
   border-radius: 30px;
   top: 0;
   left: 2px;
 }
-.itemContainer .icons .user::after {
+.mainContainer .itemContainer .icons .user::after {
   width: 12px;
   height: 9px;
   border-bottom: 0;
@@ -62,7 +61,7 @@
   border-top-right-radius: 3px;
   top: 9px;
 }
-.itemContainer .icons .album {
+.mainContainer .itemContainer .icons .album {
   box-sizing: border-box;
   position: relative;
   display: block;
@@ -76,8 +75,8 @@
   border-radius: 3px;
   margin-top: 20px;
 }
-.itemContainer .icons .album::after,
-.itemContainer .icons .album::before {
+.mainContainer .itemContainer .icons .album::after,
+.mainContainer .itemContainer .icons .album::before {
   content: "";
   display: block;
   box-sizing: border-box;
@@ -89,22 +88,31 @@
   top: 5px;
   right: 4px;
 }
-.itemContainer .icons .album::after {
+.mainContainer .itemContainer .icons .album::after {
   transform: rotate(-46deg);
   right: 2px;
 }
-.itemContainer .info {
+.mainContainer .itemContainer .info {
   float: left;
   margin-left: 35px;
   font-size: 20px;
   color: white;
 }
-.itemContainer .info .login {
+.mainContainer .itemContainer .info .login {
   margin-top: 20px;
   text-align: center;
 }
-.itemContainer .info .apiData {
+.mainContainer .itemContainer .info .apiData {
   margin-top: 20px;
+}
+.mainContainer .pageItem {
+  display: inline-block;
+}
+.mainContainer .pageItem .pageLink {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=contentResult.css.map */
