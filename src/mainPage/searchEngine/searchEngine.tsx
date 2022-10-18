@@ -1,10 +1,17 @@
 import React from 'react'
 import './searchEngine.scss'
 
-export default function SearchEngine() {
+type Props = {
+	setSearch: React.Dispatch<string>
+}
+export default function SearchEngine({setSearch}:Props) {
 	return (
 		<section className='input'>
-			<input className='inputContainer' placeholder='Search...'></input>
+			<input
+				className='inputContainer'
+				placeholder='Search...'
+				onChange={event => {setSearch(event.target.value)}}
+			/>
 		</section>
 	)
 }

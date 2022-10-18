@@ -1,15 +1,16 @@
 import React from 'react'
 import './App.css'
 import Content from './mainPage/contentResults/contentResult'
-import SearchEngine from './mainPage/searchEngine/searchEngine'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 const App = () => {
 	return (
-		<>
-			<SearchEngine />
-			<Content />
-		</>
-
+		<BrowserRouter>
+			<Routes>
+				<Route path= '/' element={<Content />}/>
+				<Route path= ':id' element={<Content />}/>
+			</Routes>
+		</BrowserRouter>
 	)
 }
 
