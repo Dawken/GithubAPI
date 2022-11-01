@@ -1,0 +1,55 @@
+.dataContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+  .userDataContainer {
+    width: 230px;
+    height: auto;
+    background-color: black;
+    border-radius: 15px;
+    .avatarImage {
+      width: 230px;
+      height: auto;
+      border-radius: 10px;
+    }
+    .content {
+      .icons {
+        float: left;
+        margin-top: 30px;
+        margin-left: 10px;
+        display: grid;
+        .icon {
+          width: 26px;
+          height: 26px;
+          margin-top: 18px;
+        }
+      }
+      .login {
+        margin-top: 10px;
+        margin-left: 70px;
+        font-size: 25px;
+      }
+      .info {
+        float: left;
+        margin-left: 25px;
+        font-size: 20px;
+        color: white;
+        .apiData {
+          margin-top: 21px;
+          text-decoration: none;
+          color: white;
+        }
+      }
+      .githubUrl {
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        margin-top: 20px;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+
