@@ -15,7 +15,7 @@
       color: red;
     }
   }
-  #target {
+  #ghostContainer {
     display: block;
     color: #000000;
     font-size: 2em;
@@ -24,8 +24,8 @@
     margin-right: 20%;
     position: relative;
     .ghost {
-      height: 20vh;
-      width: 20vh;
+      height: 25vh;
+      width: 25vh;
       margin-top: 100px;
     }
   }

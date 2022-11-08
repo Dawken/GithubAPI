@@ -7,9 +7,9 @@ const Error = () => {
 		<div className='errorContainer'>
 			<div className='errorMessage'>
 				Dont get scared! Something just went wrong...
-				<div className='errorCode'>404</div>
+				<div className='errorCode'>error 500</div>
 			</div>
-			<div id="target">
+			<div id="ghostContainer">
 				<img src={ghost} className="ghost"/>
 			</div>
 		</div>

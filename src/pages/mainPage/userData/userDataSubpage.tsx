@@ -70,7 +70,7 @@ const UserDataSubpage = () => {
 						<div className='apiData'>{userData.public_repos} repos</div>
 						<div className='apiData'>{userData.public_gists} gists</div>
 						<div className='apiData'>{userData.name || '?'}</div>
-						<a className='githubUrl' href={`${userData.html_url || '?'}`} target='_blank' rel="noreferrer">Github</a>
+						<a className='githubUrl' href={`${userData.html_url || '-'}`} target='_blank' rel="noreferrer">Github</a>
 					</div>
 				</div>
 			</div>

@@ -13,7 +13,7 @@
   font-size: 80px;
   color: red;
 }
-.errorContainer #target {
+.errorContainer #ghostContainer {
   display: block;
   color: #000000;
   font-size: 2em;
@@ -22,9 +22,9 @@
   margin-right: 20%;
   position: relative;
 }
-.errorContainer #target .ghost {
-  height: 20vh;
-  width: 20vh;
+.errorContainer #ghostContainer .ghost {
+  height: 25vh;
+  width: 25vh;
   margin-top: 100px;
 }
 
