@@ -3,7 +3,7 @@ import axios from 'axios'
 import './contentResult.scss'
 import {Link, useParams} from 'react-router-dom'
 
-type dataProps = {
+type UsersData = {
     id: string,
     avatar_url: string,
     login: string,
@@ -11,25 +11,31 @@ type dataProps = {
 	public_repos: string,
 }
 
-export default function Content() {
+const ContentResult = () => {
 
-	const [data, setData] = useState([])
-	const [postPerPage] = useState(9)
+	const [users, setUsers] = useState([])
+	const [postPerPage] = useState(12)
 	const {id} = useParams()
 	const [currentPage, setCurrentPage] = useState(Number(id) || 1)
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const rest = await axios.get('https://api.github.com/users')
-			setData(rest.data)
+			await axios.get('https://api.github.com/users?per_page=100')
+				.then(res => {
+					setUsers(res.data)
+				})
+				.catch((error) => {
+					console.log(error.toJSON())
+				})
 		}
+
 		fetchData()
 	}, [])
 	const indexOfLastPost = currentPage * postPerPage
 	const indexOfFirstPost = indexOfLastPost - postPerPage
-	const currentPosts = data.slice(indexOfFirstPost,indexOfLastPost)
+	const currentPosts = users.slice(indexOfFirstPost,indexOfLastPost)
 	const pageNumbers = []
-	for(let i=1; i<=Math.ceil(data.length / postPerPage); i++) {
+	for(let i=1; i<=Math.ceil(users.length / postPerPage); i++) {
 		pageNumbers.push(i)
 	}
 
@@ -40,7 +46,7 @@ export default function Content() {
 	return (
 		<>
 			<div className='mainContainer'>
-				{currentPosts.map((item: dataProps) => (
+				{currentPosts.map((item: UsersData) => (
 					<Link to={`/user/${item.login}`} key={item.id}>
 						<form className='itemContainer' key={item.id}>
 							<img src={item.avatar_url} className='avatarImage'></img>
@@ -63,3 +69,4 @@ export default function Content() {
 		</>
 	)
 }
+export default ContentResult
