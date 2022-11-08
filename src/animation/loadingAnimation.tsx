@@ -3,17 +3,7 @@ import './animation.scss'
 
 const LoadingAnimation = () => {
 	return (
-		<div className = 'background'>
-			<div className='building-blocks'>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div>
+		<div className='container arc'></div>
 	)
 }
 export default LoadingAnimation

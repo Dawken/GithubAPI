@@ -8,6 +8,7 @@ import gists from '../../../asstes/icons/gists.png'
 import user from '../../../asstes/icons/user.png'
 import followers from '../../../asstes/icons/followers.png'
 import LoadingAnimation from '../../../animation/loadingAnimation'
+import Error from '../../../errorSubapge/error'
 
 type UserData = {
 	avatar_url: string,
@@ -19,8 +20,9 @@ type UserData = {
 	html_url: string
 }
 const UserDataSubpage = () => {
-	const {id} = useParams()
+	const {login} = useParams()
 	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(false)
 	const [userData, setUserData]= useState<UserData>({
 		avatar_url: '',
 		login: '',
@@ -32,21 +34,23 @@ const UserDataSubpage = () => {
 	})
 	useEffect(() => {
 		const fetchData = async () => {
-			await axios.get(`https://api.github.com/users/${id}`)
+			await axios.get(`https://api.github.com/users/${login}`)
 				.then(res => {
 					setUserData(res.data)
 				})
 				.catch((error) => {
 					console.log(error.toJSON())
+					setError(true)
 				})
+				.finally(() => setLoading(false))
 		}
-		setTimeout(() => {
-			setLoading(false)
-		}, 2500)
 		fetchData()
 	}, [])
 	if(loading) {
 		return <LoadingAnimation />
+	}
+	if(error) {
+		return <Error />
 	}
 	return (
 		<div className='dataContainer'>
