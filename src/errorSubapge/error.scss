@@ -1,0 +1,50 @@
+//source: https://keyframes.app
+
+
+.errorContainer {
+  text-align: center;
+  .errorMessage {
+    font-family: 'Galindo', cursive;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 300px;
+    text-align: center;
+    .errorCode {
+      font-family: 'Nosifer', cursive;
+      font-size: 80px;
+      color: red;
+    }
+  }
+  #ghostContainer {
+    display: block;
+    color: #000000;
+    font-size: 2em;
+    animation: ghostAnimation 3s ease-in-out 0s infinite normal none;
+    text-align: end;
+    margin-right: 20%;
+    position: relative;
+    .ghost {
+      height: 25vh;
+      width: 25vh;
+      margin-top: 100px;
+    }
+  }
+}
+@keyframes ghostAnimation{
+  0% {
+    transform:  translate(0,0);
+  }
+  25% {
+    transform:  translate(0,-20px);
+  }
+  50% {
+    transform:  translate(0,-5px);
+  }
+  75% {
+    transform:  translate(0,-15px);
+  }
+  100% {
+    transform:  translate(0,0);
+  }
+}
+
