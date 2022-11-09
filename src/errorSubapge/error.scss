@@ -19,7 +19,7 @@
     display: block;
     color: #000000;
     font-size: 2em;
-    animation: yourAnimation 3s ease-in-out 0s infinite normal none;
+    animation: ghostAnimation 3s ease-in-out 0s infinite normal none;
     text-align: end;
     margin-right: 20%;
     position: relative;
@@ -30,7 +30,7 @@
     }
   }
 }
-@keyframes yourAnimation{
+@keyframes ghostAnimation{
   0% {
     transform:  translate(0,0);
   }
