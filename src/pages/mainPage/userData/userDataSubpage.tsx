@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import './userDataSubpage.scss'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
@@ -9,53 +9,28 @@ import user from '../../../asstes/icons/user.png'
 import followers from '../../../asstes/icons/followers.png'
 import LoadingAnimation from '../../../animation/loadingAnimation'
 import Error from '../../../errorSubapge/error'
+import {useQuery} from 'react-query'
 
-type UserData = {
-	avatar_url: string,
-	login: string,
-	followers: number,
-	public_repos: number,
-	public_gists: number,
-	name: string,
-	html_url: string
-}
+
 const UserDataSubpage = () => {
 	const {login} = useParams()
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState(false)
-	const [userData, setUserData]= useState<UserData>({
-		avatar_url: '',
-		login: '',
-		followers: 0,
-		public_repos: 0,
-		public_gists: 0,
-		name: '?',
-		html_url: '?'
+
+	const {isLoading, data} = useQuery(`${login}`, async() => {
+		return await axios.get(`/user/${login}`)
 	})
-	useEffect(() => {
-		const fetchData = async () => {
-			await axios.get(`https://api.github.com/users/${login}`)
-				.then(res => {
-					setUserData(res.data)
-				})
-				.catch((error) => {
-					console.log(error.toJSON())
-					setError(true)
-				})
-				.finally(() => setLoading(false))
-		}
-		fetchData()
-	}, [])
-	if(loading) {
-		return <LoadingAnimation />
-	}
-	if(error) {
-		return <Error />
+
+	if(isLoading) return <LoadingAnimation />
+
+	if(data?.data.message) {
+		return <Error
+			message={'API rate limit has been exceeded.'}
+			errorCode={'Error 114'}
+		/>
 	}
 	return (
 		<div className='dataContainer'>
 			<div className='userDataContainer'>
-				<img src={userData.avatar_url} className='avatarImage'></img>
+				<img src={data?.data.avatar_url} className='avatarImage'></img>
 				<div className='content'>
 					<div className='icons'>
 						<img src={followers} className='icon'></img>
@@ -64,13 +39,13 @@ const UserDataSubpage = () => {
 						<img src={user} className='icon'></img>
 						<img src={githubLink} className='icon'></img>
 					</div>
-					<div className='login'>{userData.login}</div>
+					<div className='login'>{data?.data.login}</div>
 					<div className='info'>
-						<div className='apiData'>{userData.followers} followers</div>
-						<div className='apiData'>{userData.public_repos} repos</div>
-						<div className='apiData'>{userData.public_gists} gists</div>
-						<div className='apiData'>{userData.name || '?'}</div>
-						<a className='githubUrl' href={`${userData.html_url || '-'}`} target='_blank' rel="noreferrer">Github</a>
+						<div className='apiData'>{data?.data.followers} followers</div>
+						<div className='apiData'>{data?.data.public_repos} repos</div>
+						<div className='apiData'>{data?.data.public_gists} gists</div>
+						<div className='apiData'>{data?.data.name || '?'}</div>
+						<a className='githubUrl' href={`${data?.data.html_url || '-'}`} target='_blank' rel="noreferrer">Github</a>
 					</div>
 				</div>
 			</div>

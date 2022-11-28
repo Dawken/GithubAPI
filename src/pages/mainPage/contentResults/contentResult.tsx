@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
 import './contentResult.scss'
-import {Link, useParams} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import LoadingAnimation from '../../../animation/loadingAnimation'
 import Error from '../../../errorSubapge/error'
+import {useQuery} from 'react-query'
+
 
 type UserData = {
     id: string,
@@ -14,48 +16,48 @@ type UserData = {
 }
 
 const ContentResult = () => {
+	const {pageNumber:numericPageNumber} = useParams()
+	const pageNumber = Number(numericPageNumber)
 
-	const [users, setUsers] = useState<UserData[]>([])
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState(false)
-	const {pageNumber} = useParams()
-	const [currentPage, setCurrentPage] = useState(Number(pageNumber) || 1)
 	const postPerPage = 12
-	useEffect(() => {
-		const fetchData = async () => {
-			await axios.get('https://api.github.com/users?per_page=100')
-				.then(res => {
-					setUsers(res.data)
-				})
-				.catch((error) => {
-					console.log(error.toJSON())
-					setError(true)
-				})
-				.finally(() => setLoading(false))
+	const navigate = useNavigate()
+
+	const {isLoading, data} = useQuery([`users`, `${pageNumber}`], async () => {
+		if (!pageNumber) {
+			navigate('/1')
 		}
-		fetchData()
-	}, [])
-	const indexOfLastPost = currentPage * postPerPage
+		return axios.get(`/${pageNumber}`)
+	})
+	if (data?.data.message) {
+		return <Error
+			message={'API rate limit has been exceeded.'}
+			errorCode={'Error 114'}
+		/>
+}
+
+	const indexOfLastPost = pageNumber * postPerPage
 	const indexOfFirstPost = indexOfLastPost - postPerPage
-	const usersData = users.slice(indexOfFirstPost,indexOfLastPost)
+	const usersData = data?.data.slice(indexOfFirstPost,indexOfLastPost)
 	const pageNumbers = []
-	for(let i=1; i<=Math.ceil(users.length / postPerPage); i++) {
+	for(let i=1; i<=Math.ceil(data?.data.length / postPerPage); i++) {
 		pageNumbers.push(i)
 	}
 	const paginate = (pageNumber:number) => {
-		setCurrentPage(pageNumber)
+		navigate(pageNumber)
 		window.scrollTo({ top: 0, behavior: 'smooth' })
 	}
-	if(loading) {
-		return <LoadingAnimation />
+	if(!pageNumbers.includes(Number(pageNumber)) && data) {
+		return <Error
+			message={"Don't get scared! Something just went wrong..."}
+			errorCode={'Error 500'}
+		/>
 	}
-	if(error) {
-		return <Error />
-	}
+	if(isLoading) return <LoadingAnimation />
+
 	return (
 		<>
 			<div className='mainContainer'>
-				{usersData.map((item) => (
+				{usersData.map((item:UserData) => (
 					<Link to={`/user/${item.login}`} key={item.id}>
 						<form className='itemContainer' key={item.id}>
 							<img src={item.avatar_url} className='avatarImage'></img>

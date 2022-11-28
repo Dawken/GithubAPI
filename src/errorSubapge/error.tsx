@@ -2,12 +2,16 @@ import React from 'react'
 import './error.scss'
 import ghost from '../asstes/icons/ghost.png'
 
-const Error = () => {
+type PropsErrorContainer = {
+	message: string,
+	errorCode: string
+}
+const Error = ({message, errorCode}:PropsErrorContainer) => {
 	return (
 		<div className='errorContainer'>
 			<div className='errorMessage'>
-				Dont get scared! Something just went wrong...
-				<div className='errorCode'>error 500</div>
+				{message}
+				<div className='errorCode'>{errorCode}</div>
 			</div>
 			<div id="ghostContainer">
 				<img src={ghost} className="ghost"/>
